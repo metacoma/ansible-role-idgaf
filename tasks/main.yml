@@ -1,0 +1,29 @@
+---
+# tasks file for sockexec
+
+# FIXME 
+- name: update packages
+  apk:
+    update_cache: true
+- name: Install build dependencies
+  apk:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - "git"
+    - "make"
+    - "gcc"
+
+- name: Download necessary source files
+  git:
+    repo: "https://github.com/jprjr/idgaf"
+    dest: "/tmp/idgaf"
+    clone: true
+    accept_hostkey: true
+
+- name: Build
+  command: "{{ item }}"
+  args:
+    chdir: "/tmp/idgaf"
+  with_items:
+    - "gcc -o /usr/local/bin/idgaf idgaf.c"
