@@ -1,7 +1,7 @@
 ---
 # tasks file for sockexec
 
-# FIXME 
+# FIXME
 - name: update packages
   apk:
     update_cache: true
@@ -10,9 +10,10 @@
     name: "{{ item }}"
     state: present
   with_items:
-    - "git"
-    - "make"
-    - "gcc"
+    - git
+    - make
+    - gcc
+    - build-base
 
 - name: Download necessary source files
   git:
